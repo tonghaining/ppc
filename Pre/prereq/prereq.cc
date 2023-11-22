@@ -14,5 +14,18 @@ This is the function you need to implement. Quick reference:
 */
 Result calculate(int ny, int nx, const float *data, int y0, int x0, int y1, int x1) {
     Result result{{0.0f, 0.0f, 0.0f}};
+    double sum[3] = {0.0, 0.0, 0.0};
+    int count = 0;
+    for (int y = y0; y < y1; y++) {
+        for (int x = x0; x < x1; x++) {
+            for (int c = 0; c < 3; c++) {
+                sum[c] += data[c + 3 * x + 3 * nx * y];
+            }
+            count++;
+        }
+    }
+    result.avg[0] = sum[0] / count;
+    result.avg[1] = sum[1] / count;
+    result.avg[2] = sum[2] / count;
     return result;
 }
